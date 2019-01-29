@@ -10,6 +10,24 @@ export default (appInfo: EggAppInfo) => {
   // add your egg config in here
   config.middleware = [];
 
+  // 配置socket
+  config.io = {
+    init: { }, // passed to engine.io
+    namespace: {
+    // 命名空间
+      '/': {
+        connectionMiddleware: [
+          'connection', // 这个是连接中间件， 只在connection的时候触发
+        ],
+        packetMiddleware: [], // 这个会在每次消息的时候触发
+      },
+      '/auth': {
+        connectionMiddleware: [],
+        packetMiddleware: [], // 这个会在每次消息的时候触发
+      },
+    },
+  };
+
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

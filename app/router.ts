@@ -1,7 +1,8 @@
 import { Application } from 'egg';
 
 export default (app: Application) => {
-  const { controller, router } = app;
+  const { controller, io } = app;
 
-  router.get('/', controller.home.index);
+  io.of('/auth').route('signin', io.controller.auth.signin);
+  io.of('/auth').route('regin', controller.auth.regin);
 };
