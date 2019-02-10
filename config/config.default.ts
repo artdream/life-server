@@ -10,20 +10,39 @@ export default (appInfo: EggAppInfo) => {
   // add your egg config in here
   config.middleware = [];
 
+  // 单数据库信息配置
+  config.mysql = {
+    client: {
+      // host
+      host: 'localhost',
+      // 端口号
+      port: '3306',
+      // 用户名
+      user: 'root',
+      // 密码
+      password: 'root',
+      // 数据库名
+      database: 'life_struggle',
+    },
+    // 是否加载到 app 上，默认开启
+    app: true,
+    // 是否加载到 agent 上，默认关闭
+    agent: false,
+  };
+
   // 配置socket
   config.io = {
-    init: { }, // passed to engine.io
+    init: {}, // passed to engine.io
     namespace: {
-    // 命名空间
+      // 命名空间
       '/': {
         connectionMiddleware: [
-          'connection', // 这个是连接中间件， 只在connection的时候触发
+          // 'connection', // 这个是连接中间件， 只在connection的时候触发
+          'auth',
         ],
-        packetMiddleware: [], // 这个会在每次消息的时候触发
-      },
-      '/auth': {
-        connectionMiddleware: [],
-        packetMiddleware: [], // 这个会在每次消息的时候触发
+        packetMiddleware: [
+          'filter',
+        ], // 这个会在每次消息的时候触发
       },
     },
   };
