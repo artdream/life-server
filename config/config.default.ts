@@ -47,6 +47,21 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
+  // 配置服务端安全策略
+  config.security = {
+    csrf: {
+      enable: false,
+      ignoreJSON: true
+    },
+    domainWhiteList: ['*'],
+  };
+
+  // 配置跨域
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,PUT,POST,DELETE,PATCH,OPTION',
+  };
+
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

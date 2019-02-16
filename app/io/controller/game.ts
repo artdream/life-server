@@ -8,7 +8,17 @@ declare module 'egg' {
     }
 }
 export default class GameController extends Controller {
-    public async updateData() {
+    public async updatedata() {
+        const { ctx } = this;
+        const userService = new UserService(ctx);
+        const req = ctx.args[0] || {};
+        if (req['name'] && req['id']) {
+            const res = await userService.updateUser(req);
+            ctx.socket.emit('updategameack', ioFormat(`updategameack`, res));
+        }
+    }
+
+    public async buytransaction(){
         const { ctx } = this;
         const userService = new UserService(ctx);
         const req = ctx.args[0] || {};

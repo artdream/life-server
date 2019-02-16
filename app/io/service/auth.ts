@@ -2,6 +2,13 @@ import { Service } from 'egg';
 import { User, UserData } from '../config/user';
 
 export default class UserService extends Service {
+    public async findUsers() {
+        const { app } = this;
+        const user = await app.mysql.select('tb_user', {
+            columns: ['id', 'name', 'life', 'money', 'health', 'stamina', 'lt_stamina', 'health_factor', 'stamina_factor', 'transaction_array', 'skill_array', 'power_array', 'goods_array', 'skill_select'],
+        });
+        return user;
+    }
     public async findUserById(id) {
         const { app } = this;
         const user = await app.mysql.select('tb_user', {

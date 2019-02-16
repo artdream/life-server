@@ -4,11 +4,11 @@
  * @interface Power
  */
 interface Power {
-    id: number,
-    name: string,
-    money: string,
-    stamina: string,
-    level: string,
+    id: number, // 能力ID
+    name: string, // 能力名称
+    money: string, // 能力学习消耗财富
+    stamina: string, // 能力学习消耗体力
+    level: number, // 能力级别 [ 0 - 99 ]
 }
 
 export {

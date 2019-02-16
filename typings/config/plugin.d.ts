@@ -4,3 +4,4 @@
 import 'egg';
 import 'egg-mysql';
 import 'egg-socket.io';
+import 'egg-cors';

@@ -14,6 +14,10 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-socket.io',
   },
+  cors:{ // 引入跨域插件
+    enable:true,
+    package:'egg-cors',
+  },
 };
 
 export default plugin;
