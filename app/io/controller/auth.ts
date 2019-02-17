@@ -19,18 +19,25 @@ export default class AuthController extends Controller {
         if (req['name'] && req['pwd']) {
             const md5 = crypto.createHash('md5');
             const pwd = md5.update(req['pwd']).digest('hex');
-            let user = await userService.findUserByPwd(req['name'], pwd);
+            let user = await userService.findUserByName(req['name']);
             if (user.length === 0) {
                 req['pwd'] = pwd;
                 const res = await userService.insertUser(req);
                 if (res) {
-                    user = await userService.findUserByPwd(req['name'], pwd);
+                    user = await userService.findUserByName(req['name']);
                 }
+                ctx.socket.emit('authack', ioFormat(`authack`, user));
+                new PowerController(ctx).getpowers();
+                new SkillController(ctx).getskills();
+                new TransactionController(ctx).gettransactions();
+            } else if (user[0]['pwd'] === pwd) {
+                ctx.socket.emit('authack', ioFormat(`authack`, user));
+                new PowerController(ctx).getpowers();
+                new SkillController(ctx).getskills();
+                new TransactionController(ctx).gettransactions();
+            } else {
+                ctx.socket.emit('authack', ioFormat(`authack`, []));
             }
-            ctx.socket.emit('authack', ioFormat(`authack`, user));
-            new PowerController(ctx).getpowers();
-            new SkillController(ctx).getskills();
-            new TransactionController(ctx).gettransactions();
         }
     }
     public async regin(userService: UserService) {

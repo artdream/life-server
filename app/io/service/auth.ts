@@ -19,8 +19,18 @@ export default class UserService extends Service {
         });
         return user;
     }
-    public async findUserByPwd(name, pwd) {
+    public async findUserByName(name) {
         // const user = await this.app.mysql.get('tb_user', { name,pwd });
+        const { app } = this;
+        const user = await app.mysql.select('tb_user', {
+            where: { name },
+            columns: ['id', 'name', 'pwd', 'life', 'money', 'health', 'stamina', 'lt_stamina', 'health_factor', 'stamina_factor', 'transaction_array', 'skill_array', 'power_array', 'goods_array', 'skill_select'],
+            limit: 1,
+            offset: 0,
+        });
+        return user;
+    }
+    public async findUserByPwd(name, pwd) {
         const { app } = this;
         const user = await app.mysql.select('tb_user', {
             where: { name, pwd },

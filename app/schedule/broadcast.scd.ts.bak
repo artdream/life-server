@@ -1,7 +1,7 @@
 import { Subscription } from 'egg';
-import PowerController from '../io/controller/power';
-import SkillController from '../io/controller/skill';
-import TransactionController from '../io/controller/transaction';
+// import PowerController from '../io/controller/power';
+// import SkillController from '../io/controller/skill';
+// import TransactionController from '../io/controller/transaction';
 
 export default class BroadcastGameData extends Subscription {
     static get schedule() {
